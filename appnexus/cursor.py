@@ -64,6 +64,10 @@ class Cursor(object):
         for possible_data_key in uncommon_keys:
             element = page[possible_data_key]
             if isinstance(element, dict):
+                if "execution_status" in page:
+                    # Used in reporting service to verify if report has been
+                    # generated
+                    element["execution_status"] = page["execution_status"]
                 return [self.representation(self.client, self.service_name,
                                             element)]
             if isinstance(element, list):
